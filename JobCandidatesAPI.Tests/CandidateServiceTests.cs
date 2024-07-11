@@ -5,6 +5,8 @@ using Logic.Dtos;
 using Logic.Interfaces;
 using Logic.MappingProfiles;
 using Logic.Services;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using System.Linq.Expressions;
 using Xunit;
@@ -15,7 +17,8 @@ namespace JobCandidatesAPI.Tests
     {
         private readonly Mock<ICandidateRepository> _candidateRepositoryMock;
         private readonly ICandidateService _candidateService;
-        private IMapper _mapper;
+        private readonly IMapper _mapper;
+        private readonly IMemoryCache _memoryCache;
         public CandidateServiceTests()
         {
             var config = new MapperConfiguration(cfg =>
@@ -23,8 +26,9 @@ namespace JobCandidatesAPI.Tests
                 cfg.AddProfile<AutoMapperProfile>();
             });
             _mapper = new Mapper(config);
+            _memoryCache = new MemoryCache(new MemoryCacheOptions()); ;
             _candidateRepositoryMock = new Mock<ICandidateRepository>();
-            _candidateService = new CandidateService(_candidateRepositoryMock.Object, _mapper);
+            _candidateService = new CandidateService(_candidateRepositoryMock.Object, _mapper, _memoryCache);
         }
 
         [Fact]

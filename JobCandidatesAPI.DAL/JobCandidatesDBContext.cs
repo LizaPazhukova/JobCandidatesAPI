@@ -13,6 +13,8 @@ namespace DAL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Candidate>().HasIndex(u => u.Email).IsUnique();
+
             base.OnModelCreating(modelBuilder);
         }
     }
