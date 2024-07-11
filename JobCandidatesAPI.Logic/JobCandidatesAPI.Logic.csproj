@@ -11,7 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DAL\JobCandidatesAPI.DAL.csproj" />
     <ProjectReference Include="..\JobCandidatesAPI.DAL\JobCandidatesAPI.DAL.csproj" />
   </ItemGroup>
 
